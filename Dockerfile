@@ -1,7 +1,7 @@
 FROM centos:7 as builder
 
-ARG GIT_VERSION=2.26.2
-ARG GIT_LFS_VERSION=2.10.0
+ARG GIT_VERSION=2.27.0
+ARG GIT_LFS_VERSION=2.11.0
 
 # install build dependencies
 RUN yum -y install gcc make curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-ExtUtils-MakeMaker autoconf
