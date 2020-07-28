@@ -1,6 +1,6 @@
 FROM centos:7 as builder
 
-ARG GIT_VERSION=2.27.0
+ARG GIT_VERSION=2.28.0
 ARG GIT_LFS_VERSION=2.11.0
 
 # install build dependencies
