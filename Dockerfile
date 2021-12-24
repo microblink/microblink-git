@@ -1,9 +1,9 @@
-FROM centos:7 as builder
+FROM amazonlinux:2 as builder
 
-ARG GIT_VERSION=2.30.0
-ARG GIT_LFS_VERSION=2.13.1
+ARG GIT_VERSION=2.34.1
+ARG GIT_LFS_VERSION=3.0.2
 # install build dependencies
-RUN yum -y install gcc make curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-ExtUtils-MakeMaker autoconf
+RUN yum -y install gcc make curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-ExtUtils-MakeMaker autoconf tar gzip
 
 # build git from source
 RUN mkdir -p /home/build && \
@@ -23,7 +23,7 @@ RUN curl -o git-lfs.tar.gz -L https://github.com/git-lfs/git-lfs/releases/downlo
     tar xf git-lfs.tar.gz && \
     mv git-lfs /usr/local/bin/
 
-FROM centos:7
+FROM amazonlinux:2
 COPY --from=builder /usr/local /usr/local/
 RUN git lfs install && \
     yum -y install openssh-clients
