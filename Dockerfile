@@ -1,6 +1,6 @@
 FROM amazonlinux:2 as builder
 
-ARG GIT_VERSION=2.34.1
+ARG GIT_VERSION=2.35.1
 ARG GIT_LFS_VERSION=3.0.2
 # install build dependencies
 RUN yum -y install gcc make curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-ExtUtils-MakeMaker autoconf tar gzip
