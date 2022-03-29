@@ -1,7 +1,9 @@
 FROM amazonlinux:2 as builder
 
 ARG GIT_VERSION=2.35.1
-ARG GIT_LFS_VERSION=3.0.2
+ARG GIT_LFS_VERSION=3.1.2
+ARG BUILDPLATFORM
+
 # install build dependencies
 RUN yum -y install gcc make curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-ExtUtils-MakeMaker autoconf tar gzip
 
@@ -19,7 +21,8 @@ RUN mkdir -p /home/build && \
     rm -rf *
 
 # download and install git-lfs from
-RUN curl -o git-lfs.tar.gz -L https://github.com/git-lfs/git-lfs/releases/download/v${GIT_LFS_VERSION}/git-lfs-linux-amd64-v${GIT_LFS_VERSION}.tar.gz && \
+RUN if [ "$BUILDPLATFORM" == "linux/arm64" ]; then arch=arm64; else arch=amd64; fi && \
+    curl -o git-lfs.tar.gz -L https://github.com/git-lfs/git-lfs/releases/download/v${GIT_LFS_VERSION}/git-lfs-linux-${arch}-v${GIT_LFS_VERSION}.tar.gz && \
     tar xf git-lfs.tar.gz && \
     mv git-lfs /usr/local/bin/
 
