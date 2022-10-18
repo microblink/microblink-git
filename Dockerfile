@@ -1,7 +1,7 @@
 FROM amazonlinux:2 as builder
 
-ARG GIT_VERSION=2.35.1
-ARG GIT_LFS_VERSION=3.1.2
+ARG GIT_VERSION=2.38.0
+ARG GIT_LFS_VERSION=3.2.0
 ARG BUILDPLATFORM
 
 # install build dependencies
