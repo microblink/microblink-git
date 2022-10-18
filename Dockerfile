@@ -24,7 +24,7 @@ RUN mkdir -p /home/build && \
 RUN if [ "$BUILDPLATFORM" == "linux/arm64" ]; then arch=arm64; else arch=amd64; fi && \
     curl -o git-lfs.tar.gz -L https://github.com/git-lfs/git-lfs/releases/download/v${GIT_LFS_VERSION}/git-lfs-linux-${arch}-v${GIT_LFS_VERSION}.tar.gz && \
     tar xf git-lfs.tar.gz && \
-    mv git-lfs /usr/local/bin/
+    mv git-lfs-${GIT_LFS_VERSION}/git-lfs /usr/local/bin/
 
 FROM amazonlinux:2
 COPY --from=builder /usr/local /usr/local/
