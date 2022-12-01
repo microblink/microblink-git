@@ -1,7 +1,7 @@
-FROM amazonlinux:2 as builder
+FROM amazonlinux:2022 as builder
 
-ARG GIT_VERSION=2.38.0
-ARG GIT_LFS_VERSION=3.2.0
+ARG GIT_VERSION=2.38.1
+ARG GIT_LFS_VERSION=3.3.0
 ARG BUILDPLATFORM
 
 # install build dependencies
@@ -26,7 +26,7 @@ RUN if [ "$BUILDPLATFORM" == "linux/arm64" ]; then arch=arm64; else arch=amd64; 
     tar xf git-lfs.tar.gz && \
     mv git-lfs-${GIT_LFS_VERSION}/git-lfs /usr/local/bin/
 
-FROM amazonlinux:2
+FROM amazonlinux:2022
 COPY --from=builder /usr/local /usr/local/
 RUN git lfs install && \
     yum -y install openssh-clients
