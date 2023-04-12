@@ -1,11 +1,11 @@
 FROM amazonlinux:2022 as builder
 
-ARG GIT_VERSION=2.38.1
+ARG GIT_VERSION=2.40.0
 ARG GIT_LFS_VERSION=3.3.0
 ARG BUILDPLATFORM
 
 # install build dependencies
-RUN yum -y install gcc make curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-ExtUtils-MakeMaker autoconf tar gzip
+RUN yum -y install gcc make curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-ExtUtils-MakeMaker autoconf tar gzip glibc-langpack-en
 
 # build git from source
 RUN mkdir -p /home/build && \
