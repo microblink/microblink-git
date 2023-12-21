@@ -1,11 +1,15 @@
-FROM amazonlinux:2022 as builder
+FROM phusion/baseimage:jammy-1.0.1 as builder
 
-ARG GIT_VERSION=2.41.0
-ARG GIT_LFS_VERSION=3.3.0
+ARG GIT_VERSION=2.43.0
+ARG GIT_LFS_VERSION=3.4.1
 ARG BUILDPLATFORM
 
 # install build dependencies
-RUN yum -y install gcc make curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-ExtUtils-MakeMaker autoconf tar gzip glibc-langpack-en
+RUN apt update && apt upgrade -y
+RUN apt install -y gcc make libcurl4-openssl-dev autoconf zlib1g-dev gettext
+
+# make sure bash is used for following RUN commands
+RUN ln -f -s /usr/bin/bash /bin/sh
 
 # build git from source
 RUN mkdir -p /home/build && \
@@ -14,7 +18,7 @@ RUN mkdir -p /home/build && \
     tar xzf git.tar.gz && \
     pushd git-${GIT_VERSION} && \
     make configure && \
-    ./configure --prefix=/usr/local && \
+    ./configure --prefix=/usr/local --without-tcltk && \
     make -j $(nproc) all &&  \
     make install && \
     popd && \
@@ -26,7 +30,8 @@ RUN if [ "$BUILDPLATFORM" == "linux/arm64" ]; then arch=arm64; else arch=amd64; 
     tar xf git-lfs.tar.gz && \
     mv git-lfs-${GIT_LFS_VERSION}/git-lfs /usr/local/bin/
 
-FROM amazonlinux:2022
+FROM phusion/baseimage:jammy-1.0.1
+
 COPY --from=builder /usr/local /usr/local/
-RUN git lfs install && \
-    yum -y install openssh-clients
+
+RUN git lfs install
