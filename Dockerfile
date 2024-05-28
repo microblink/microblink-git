@@ -1,7 +1,7 @@
-FROM phusion/baseimage:jammy-1.0.1 as builder
+FROM phusion/baseimage:noble-1.0.0 as builder
 
-ARG GIT_VERSION=2.43.0
-ARG GIT_LFS_VERSION=3.4.1
+ARG GIT_VERSION=2.45.1
+ARG GIT_LFS_VERSION=3.5.1
 ARG BUILDPLATFORM
 
 # install build dependencies
@@ -30,7 +30,7 @@ RUN if [ "$BUILDPLATFORM" == "linux/arm64" ]; then arch=arm64; else arch=amd64; 
     tar xf git-lfs.tar.gz && \
     mv git-lfs-${GIT_LFS_VERSION}/git-lfs /usr/local/bin/
 
-FROM phusion/baseimage:jammy-1.0.1
+FROM phusion/baseimage:noble-1.0.0
 
 COPY --from=builder /usr/local /usr/local/
 
