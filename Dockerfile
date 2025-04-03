@@ -1,7 +1,7 @@
-FROM phusion/baseimage:noble-1.0.0 as builder
+FROM phusion/baseimage:noble-1.0.1 AS builder
 
-ARG GIT_VERSION=2.45.1
-ARG GIT_LFS_VERSION=3.5.1
+ARG GIT_VERSION=2.49.0
+ARG GIT_LFS_VERSION=3.6.1
 ARG BUILDPLATFORM
 
 # install build dependencies
