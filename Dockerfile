@@ -30,7 +30,7 @@ RUN if [ "$BUILDPLATFORM" == "linux/arm64" ]; then arch=arm64; else arch=amd64; 
     tar xf git-lfs.tar.gz && \
     mv git-lfs-${GIT_LFS_VERSION}/git-lfs /usr/local/bin/
 
-FROM phusion/baseimage:noble-1.0.0
+FROM phusion/baseimage:noble-1.0.1
 
 COPY --from=builder /usr/local /usr/local/
 
