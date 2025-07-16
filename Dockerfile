@@ -1,7 +1,7 @@
-FROM phusion/baseimage:noble-1.0.1 AS builder
+FROM phusion/baseimage:noble-1.0.2 AS builder
 
-ARG GIT_VERSION=2.49.0
-ARG GIT_LFS_VERSION=3.6.1
+ARG GIT_VERSION=2.50.1
+ARG GIT_LFS_VERSION=3.7.0
 ARG BUILDPLATFORM
 
 # install build dependencies
@@ -30,7 +30,7 @@ RUN if [ "$BUILDPLATFORM" == "linux/arm64" ]; then arch=arm64; else arch=amd64; 
     tar xf git-lfs.tar.gz && \
     mv git-lfs-${GIT_LFS_VERSION}/git-lfs /usr/local/bin/
 
-FROM phusion/baseimage:noble-1.0.1
+FROM phusion/baseimage:noble-1.0.2
 
 COPY --from=builder /usr/local /usr/local/
 
